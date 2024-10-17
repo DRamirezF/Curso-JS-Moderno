@@ -1,0 +1,1 @@
+// Las variables con CONST deben ser inicializadas con un valor y este no se puede cambiar
