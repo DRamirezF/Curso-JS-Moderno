@@ -1,71 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administrador de Pacientes</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h2 class="text-center my-5 titulo">Administrador de Pacientes de Veterinaria</h2>
-    <div class="container mt-5 p-5">
-        <div id="contenido" class="row">
-            <div class="col-md-6 agregar-cita">
-                <form id="nueva-cita">
-                    <legend class="mb-4">Datos del Paciente</legend>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Nombre Mascota:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="mascota" name="mascota" class="form-control" placeholder="Nombre Mascota">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Propietario:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="propietario" name="propietario" class="form-control"  placeholder="Nombre Dueño de la Mascota">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Teléfono:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="tel" id="telefono" name="telefono" class="form-control"  placeholder="Número de Teléfono">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Fecha:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="date" id="fecha" name="fecha" class="form-control">
-                        </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Administrador de Pacientes</title>
+        <link rel="stylesheet" href="dist/output.css" />
+    </head>
+    <body class="bg-gray-100 h-screen">
+        <h1 class="font-black text-5xl text-center md:w-2/3 mx-auto mt-20">
+            Seguimiento Pacientes
+            <span class="text-indigo-700">Veterinaria</span>
+        </h1>
+
+        <div class="mt-12 md:flex container mx-auto">
+            <div class="md:w-1/2 lg:w-2/5 mx-5">
+                <h2 class="font-black text-3xl text-center">
+                    Seguimiento Pacientes
+                </h2>
+
+                <p class="text-lg mt-5 text-center mb-10">
+                    Añade Pacientes y
+                    <span class="text-indigo-600 font-bold">Administralos</span>
+                </p>
+
+                <form
+                    id="formulario-cita"
+                    class="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
+                >
+                    <div class="mb-5">
+                        <label
+                            for="paciente"
+                            class="block text-gray-700 uppercase font-bold text-sm"
+                        >
+                            Nombre Paciente:
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="text"
+                            id="paciente"
+                            placeholder="Nombre Paciente"
+                            name="paciente"
+                        />
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Hora:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="time" id="hora" name="hora" class="form-control">
-                        </div>
+                    <div class="mb-5">
+                        <label
+                            for="propietario"
+                            class="block text-gray-700 uppercase font-bold text-sm"
+                        >
+                            Nombre Propietario:
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="text"
+                            id="propietario"
+                            placeholder="Nombre Propietario"
+                            name="propietario"
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                            for="email"
+                            class="block text-gray-700 uppercase font-bold text-sm"
+                        >
+                            Email Contacto
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="email"
+                            id="email"
+                            placeholder="E-mail Contacto"
+                            name="email"
+                        />
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Sintomas:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <textarea id="sintomas" name="sintomas" class="form-control"></textarea>
-                        </div>
+                    <div class="mb-5">
+                        <label
+                            for="fecha"
+                            class="block text-gray-700 uppercase font-bold text-sm"
+                        >
+                            Fecha Alta
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="date"
+                            id="fecha"
+                            name="fecha"
+                        />
                     </div>
-                    <div class="form-group">
-                            <button type="submit" class="btn btn-success w-100 d-block">Crear Cita</button>
+
+                    <div class="mb-5">
+                        <label
+                            for="sintomas"
+                            class="block text-gray-700 uppercase font-bold text-sm"
+                        >
+                            Síntomas
+                        </label>
+                        <textarea
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            id="sintomas"
+                            name="sintomas"
+                            placeholder="Síntomas del Paciente"
+                        ></textarea>
                     </div>
+
+                    <input
+                        type="submit"
+                        class="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
+                        value="Registrar Paciente"
+                    />
                 </form>
             </div>
-            <div class="col-md-6">
-                <h2 id="administra" class="mb-4">Administra tus Citas</h2>
-                <ul id="citas" class="list-group lista-citas"></ul>
+
+            <div class="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
+                <h2 class="font-black text-3xl text-center">
+                    Listado Pacientes
+                </h2>
+                <p class="text-xl mt-5 mb-10 text-center">
+                    Administra tus
+                    <span class="text-indigo-600 font-bold"
+                        >Pacientes y Citas</span
+                    >
+                </p>
+                <div id="citas">
+                    <p class="text-xl mt-5 mb-10 text-center">
+                        No Hay Pacientes
+                    </p>
+                </div>
             </div>
-        </div> <!--.row-->
-    </div><!--.container-->
+        </div>
 
-    <script src="js/app.js"></script>
-
-</body>
+        <script src="js/app.js"></script>
+    </body>
 </html>
