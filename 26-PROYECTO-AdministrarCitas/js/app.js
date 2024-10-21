@@ -83,7 +83,7 @@ class AdminCitas {
 
     agregarCitas(cita) {
         this.citas = [...this.citas, cita];
-        this.mostrar()
+        this.mostrar();
     }
 
     mostrar() {
@@ -93,8 +93,6 @@ class AdminCitas {
         }
 
         this.citas.forEach((cita) => {
-            const { pacienteCita, propietarioCita, emailCita, fechaCita, sintomasCita } = cita
-
             const divCita = document.createElement("div");
             divCita.classList.add(
                 "mx-5",
@@ -114,7 +112,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${pacienteCita}`;
+            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${cita.paciente}`;
 
             const propietario = document.createElement("p");
             propietario.classList.add(
@@ -123,7 +121,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${propietarioCita}`;
+            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${cita.propietario}`;
 
             const email = document.createElement("p");
             email.classList.add(
@@ -132,7 +130,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${emailCita}`;
+            email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${cita.email}`;
 
             const fecha = document.createElement("p");
             fecha.classList.add(
@@ -141,7 +139,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${fechaCita}`;
+            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${cita.fecha}`;
 
             const sintomas = document.createElement("p");
             sintomas.classList.add(
@@ -150,87 +148,7 @@ class AdminCitas {
                 "text-gray-700",
                 "normal-case"
             );
-            sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${sintomasCita}`;
-
-            // Agregar al HTML
-            divCita.appendChild(paciente);
-            divCita.appendChild(propietario);
-            divCita.appendChild(email);
-            divCita.appendChild(fecha);
-            divCita.appendChild(sintomas);
-            contenedorCitas.appendChild(divCita);
-        });
-    }
-}
-        this.citas = [...this.citas, cita];
-        this.mostrar()
-    }
-
-    mostrar() {
-        // Limpiar citas
-        while (contenedorCitas.firstChild) {
-            contenedorCitas.removeChild(contenedorCitas.lastChild);
-        }
-
-        this.citas.forEach((cita) => {
-            const { pacienteCita, propietarioCita, emailCita, fechaCita, sintomasCita } = cita
-
-            const divCita = document.createElement("div");
-            divCita.classList.add(
-                "mx-5",
-                "my-10",
-                "bg-white",
-                "shadow-md",
-                "px-5",
-                "py-10",
-                "rounded-xl",
-                "p-3"
-            );
-
-            const paciente = document.createElement("p");
-            paciente.classList.add(
-                "font-normal",
-                "mb-3",
-                "text-gray-700",
-                "normal-case"
-            );
-            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${pacienteCita}`;
-
-            const propietario = document.createElement("p");
-            propietario.classList.add(
-                "font-normal",
-                "mb-3",
-                "text-gray-700",
-                "normal-case"
-            );
-            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${propietarioCita}`;
-
-            const email = document.createElement("p");
-            email.classList.add(
-                "font-normal",
-                "mb-3",
-                "text-gray-700",
-                "normal-case"
-            );
-            email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${emailCita}`;
-
-            const fecha = document.createElement("p");
-            fecha.classList.add(
-                "font-normal",
-                "mb-3",
-                "text-gray-700",
-                "normal-case"
-            );
-            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${fechaCita}`;
-
-            const sintomas = document.createElement("p");
-            sintomas.classList.add(
-                "font-normal",
-                "mb-3",
-                "text-gray-700",
-                "normal-case"
-            );
-            sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${sintomasCita}`;
+            sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${cita.sintomas}`;
 
             // Agregar al HTML
             divCita.appendChild(paciente);
@@ -243,7 +161,6 @@ class AdminCitas {
     }
 }
 
-const citas = new AdminCitas();
 const citas = new AdminCitas();
 
 // Funciones
@@ -262,9 +179,9 @@ function submitCita(e) {
         return;
     }
 
-    citas.agregarCitas({...citaObj});
+    citas.agregarCitas({ ...citaObj });
     formularioCita.reset();
-    reiniciarObjetoCita()
+    reiniciarObjetoCita();
     new Notificacion({
         texto: "Paciente Registrado",
         tipo: "exito",
@@ -288,5 +205,5 @@ function reiniciarObjetoCita() {
         email: "",
         fecha: "",
         sintomas: "",
-    })
+    });
 }
