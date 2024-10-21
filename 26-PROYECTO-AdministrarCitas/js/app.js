@@ -7,6 +7,8 @@ const sintomasInput = document.querySelector('#sintomas');
 
 const formularioCita = document.querySelector('#formulario-cita');
 
+const contenedorCitas = document.querySelector('#citas');
+
 
 // EventListeners
 pacienteInput.addEventListener('change', datosCita)
@@ -50,9 +52,9 @@ class Notificacion {
         // }
 
         // Comprobamos el tipo de alerta
-        this.tipo === 'error' ? 
-        alerta.classList.add('bg-red-500') :
-        alerta.classList.add('bg-green-500')
+        this.tipo === 'error' 
+        ? alerta.classList.add('bg-red-500') 
+        : alerta.classList.add('bg-green-500')
 
         // Insertamos el texto
         alerta.textContent = this.texto;
@@ -98,6 +100,11 @@ function submitCita(e) {
     }
 
     citas.agregarCitas(citaObj)
+
+    new Notificacion({
+        texto: 'Exito',
+        tipo: 'success'
+    })
 
     formularioCita.reset()
 }
