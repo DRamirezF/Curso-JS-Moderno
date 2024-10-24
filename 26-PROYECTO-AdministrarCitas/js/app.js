@@ -6,8 +6,9 @@ const fechaInput = document.querySelector("#fecha");
 const sintomasInput = document.querySelector("#sintomas");
 
 const formularioCita = document.querySelector("#formulario-cita");
-
 const contenedorCitas = document.querySelector("#citas");
+
+let editando = false;
 
 // EventListeners
 pacienteInput.addEventListener("change", datosCita);
@@ -61,9 +62,21 @@ class Notificacion {
         // }
 
         // Comprobamos el tipo de alerta
-        this.tipo === "error"
-            ? alerta.classList.add("bg-red-500")
-            : alerta.classList.add("bg-green-500");
+        switch (this.tipo) {
+            case 'error':
+                alerta.classList.add("bg-red-500")
+                break;
+            case 'exito':
+                alerta.classList.add("bg-green-500")
+                break;
+            case 'cambio':
+                alerta.classList.add("bg-indigo-600")
+                break;
+
+            default:
+                console.log('Caso sin mapear');
+                break;
+        }
 
         // Insertamos el texto
         alerta.textContent = this.texto;
@@ -224,13 +237,21 @@ function submitCita(e) {
         return;
     }
 
-    citas.agregarCitas({ ...citaObj });
+    if (editando) {
+        console.log('Editando registro');
+        new Notificacion({
+            texto: "Registro editado",
+            tipo: "cambio",
+        });
+    } else {
+        citas.agregarCitas({ ...citaObj });
+        new Notificacion({
+            texto: "Paciente Registrado",
+            tipo: "exito",
+        });
+    }
     formularioCita.reset();
     reiniciarObjetoCita();
-    new Notificacion({
-        texto: "Paciente Registrado",
-        tipo: "exito",
-    });
 }
 
 function reiniciarObjetoCita() {
@@ -267,4 +288,6 @@ function cargarEdicion(cita) {
     fechaInput.value = cita.fecha
     emailInput.value = cita.email
     sintomasInput.value = cita.sintomas
+
+    editando = true;
 }
