@@ -24,3 +24,10 @@ export class Cliente {
         return `Cliente: ${this.nombre} - Ahorro: ${this.ahorro}`
     }
 }
+
+
+// Sólo puede haber uno por archivo
+// Puede no tener nombre, pero es una nueva práctica que lo tenga
+export default function nuevaFuncion() {
+    console.log('Desde el export default');
+}
