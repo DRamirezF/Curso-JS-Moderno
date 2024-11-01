@@ -1,4 +1,4 @@
-
+let DB;
 const mascotaInput = document.querySelector('#mascota');
 const propietarioInput = document.querySelector('#propietario');
 const telefonoInput = document.querySelector('#telefono');
@@ -19,9 +19,13 @@ const heading = document.querySelector('#administra');
 
 let editando = false;
 
+window.onload = function() {
+    eventListeners();
 
-// Eventos
-eventListeners();
+    crearDB()
+}
+
+
 function eventListeners() {
     mascotaInput.addEventListener('change', datosCita);
     propietarioInput.addEventListener('change', datosCita);
@@ -262,4 +266,41 @@ function cargarEdicion(cita) {
 
     editando = true;
 
+}
+
+function crearDB() {
+    // crear base de datos
+    const crearDB = window.indexedDB.open('citas', 1)
+
+    crearDB.onerror = function() {
+        console.log('Error al crear la Base de Datos');
+    }
+
+    crearDB.onsuccess = function() {
+        console.log('Se creó una Base de Datos');
+
+        DB = crearDB.result
+
+        console.log(DB);
+    }
+
+    crearDB.onupgradeneeded = function(e) {
+        const db = e.target.result
+
+        const objectStore = db.createObjectStore('citas', {
+            keyPath: 'id',
+            autoIncrement: true
+        })
+
+            // Definir todas las columnas
+            objectStore.createIndex('mascota', 'mascota', { unique: false } )
+            objectStore.createIndex('propietario', 'propietario', { unique: false } )
+            objectStore.createIndex('telefono', 'telefono', { unique: false } )
+            objectStore.createIndex('fecha', 'fecha', { unique: false } )
+            objectStore.createIndex('hora', 'hora', { unique: false } )
+            objectStore.createIndex('sintomas', 'sintomas', { unique: false } )
+            objectStore.createIndex('id', 'id', { unique: true } )
+
+            console.log('DataBase creada y lista');
+    }
 }
