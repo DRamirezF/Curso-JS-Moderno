@@ -37,9 +37,19 @@
             empresa === ''
         ) {
             imprimirAlerta('Todos los campos son obligatorios', 'error');
-
             return;
         }
+
+        // Crear un objeto  con la información
+        const cliente = {
+            nombre,
+            email,
+            telefono,
+            empresa,
+            id: Date.now()
+        }
+
+        agregarNuevoCliente(cliente)
     }
 
     function imprimirAlerta(mensaje, tipo) {
@@ -80,6 +90,22 @@
 
             setTimeout(() => {
                 divMensaje.remove();
+            }, 3000);
+        }
+    }
+
+    function agregarNuevoCliente(cliente) {
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+        objectStore.add(cliente)
+        
+        transaction.onerror = () => imprimirAlerta('Ya existe un cliente con ese correo', 'error');
+        transaction.oncomplete = () => {
+            console.log('Cliente agregado')
+            imprimirAlerta('Cliente agregado correctamente', 'success')
+
+            setTimeout(() => {
+                window.location.href = 'index.html'
             }, 3000);
         }
     }
