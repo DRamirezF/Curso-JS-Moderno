@@ -54,11 +54,6 @@
 
             const objectStore = DB.transaction('crm').objectStore('crm');
 
-            // const total = objectStore.count();
-            // total.onsuccess = function () {
-            //     console.log(total.result);
-            // };
-
             objectStore.openCursor().onsuccess = function (e) {
                 const cursor = e.target.result;
                 
