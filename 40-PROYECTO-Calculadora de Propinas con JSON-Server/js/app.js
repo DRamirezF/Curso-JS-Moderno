@@ -42,9 +42,21 @@ function guardarCliente() {
 
     // Mostrar las secciones
     mostrarSecciones()
+
+    //  Obtener platillos de la API de json-server
+    obtenerPlatillos()
 }
 
 function mostrarSecciones() {
     const seccionesOcultas = document.querySelectorAll('.d-none')
     seccionesOcultas.forEach( seccion => seccion.classList.remove('d-none'))
+}
+
+function obtenerPlatillos() {
+    const url = 'http://localhost:4000/platillos'
+
+    fetch(url)
+        .then( response => response.json() )
+        .then( data => console.log(data) )
+        .catch( error => console.log(error) )
 }
