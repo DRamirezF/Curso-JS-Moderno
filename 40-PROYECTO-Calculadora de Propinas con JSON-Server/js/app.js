@@ -57,6 +57,23 @@ function obtenerPlatillos() {
 
     fetch(url)
         .then( response => response.json() )
-        .then( data => console.log(data) )
+        .then( data => mostrarPlatillos(data) )
         .catch( error => console.log(error) )
+}
+
+function mostrarPlatillos(platillos) {
+    const listaPlatillos = document.querySelector('#platillos .contenido')
+
+    platillos.forEach( platillo => {
+        const { categoria, nombre, id, precio } = platillo
+        const row = document.createElement('DIV')
+        row.classList.add('row')
+
+        const nombreElemento = document.createElement('DIV')
+        nombre.classList.add('col-md-4')
+        nombreElemento.textContent = nombre
+
+        row.appendChild(nombre)
+        listaPlatillos.appendChild(row)
+    })
 }
