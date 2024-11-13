@@ -4,6 +4,12 @@ let cliente = {
     pedido: [],
 };
 
+const categorias = {
+    1: 'Comida',
+    2: 'Bebida',
+    3: 'Postre'
+}
+
 const btnGuardarCliente = document.querySelector('#guardar-cliente');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -67,13 +73,23 @@ function mostrarPlatillos(platillos) {
     platillos.forEach( platillo => {
         const { categoria, nombre, id, precio } = platillo
         const row = document.createElement('DIV')
-        row.classList.add('row')
+        row.className = 'row py-3 border-top'
 
         const nombreElemento = document.createElement('DIV')
-        nombre.classList.add('col-md-4')
+        nombreElemento.className = 'col-md-4'
         nombreElemento.textContent = nombre
 
-        row.appendChild(nombre)
+        const precioElemento = document.createElement('DIV')
+        precioElemento.className = 'col-md-3 fw-bold'
+        precioElemento.textContent = '$' + precio
+
+        const categoriaElemento = document.createElement('DIV')
+        categoriaElemento.className = 'col-md-3'
+        categoriaElemento.textContent = categorias[categoria]
+
+        row.appendChild(nombreElemento)
+        row.appendChild(precioElemento)
+        row.appendChild(categoriaElemento)
         listaPlatillos.appendChild(row)
     })
 }
