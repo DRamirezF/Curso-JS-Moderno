@@ -87,17 +87,23 @@ function mostrarPlatillos(platillos) {
         categoriaElemento.className = 'col-md-3';
         categoriaElemento.textContent = categorias[categoria];
 
-        const input = document.createElement('INPUT');
-        input.type = 'number';
-        input.min = 0;
-        input.value = 0;
-        input.id = 'producto-' + id;
-        input.className = 'form-control';
+        const inputCantidad = document.createElement('INPUT');
+        inputCantidad.type = 'number';
+        inputCantidad.min = 0;
+        inputCantidad.value = 0;
+        inputCantidad.id = 'producto-' + id;
+        inputCantidad.className = 'form-control';
+
+        // Función que detecta la cantidad y el platillo que se está agregando
+        inputCantidad.onchange = function() {
+            const cantidad = Number(inputCantidad.value)
+            agregarPlatillo({...platillo, cantidad})
+        }
 
         const agregarElemento = document.createElement('DIV')
         agregarElemento.className = 'col-md-2';
 
-        agregarElemento.appendChild(input)
+        agregarElemento.appendChild(inputCantidad)
 
         row.appendChild(nombreElemento);
         row.appendChild(precioElemento);
@@ -106,4 +112,8 @@ function mostrarPlatillos(platillos) {
 
         listaPlatillos.appendChild(row);
     });
+}
+
+function agregarPlatillo(producto) {
+    console.log(producto);
 }
