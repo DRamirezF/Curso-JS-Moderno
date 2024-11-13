@@ -7,8 +7,8 @@ let cliente = {
 const categorias = {
     1: 'Comida',
     2: 'Bebida',
-    3: 'Postre'
-}
+    3: 'Postre',
+};
 
 const btnGuardarCliente = document.querySelector('#guardar-cliente');
 
@@ -40,56 +40,56 @@ function guardarCliente() {
     }
 
     // Asignar datos del formulario al cliente
-    cliente = {...cliente, mesa, hora}
+    cliente = { ...cliente, mesa, hora };
 
-    const modalFormulario = document.querySelector('#formulario')
-    const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario)
-    modalBootstrap.hide()
+    const modalFormulario = document.querySelector('#formulario');
+    const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
+    modalBootstrap.hide();
 
     // Mostrar las secciones
-    mostrarSecciones()
+    mostrarSecciones();
 
     //  Obtener platillos de la API de json-server
-    obtenerPlatillos()
+    obtenerPlatillos();
 }
 
 function mostrarSecciones() {
-    const seccionesOcultas = document.querySelectorAll('.d-none')
-    seccionesOcultas.forEach( seccion => seccion.classList.remove('d-none'))
+    const seccionesOcultas = document.querySelectorAll('.d-none');
+    seccionesOcultas.forEach((seccion) => seccion.classList.remove('d-none'));
 }
 
 function obtenerPlatillos() {
-    const url = 'http://localhost:4000/platillos'
+    const url = 'http://localhost:4000/platillos';
 
     fetch(url)
-        .then( response => response.json() )
-        .then( data => mostrarPlatillos(data) )
-        .catch( error => console.log(error) )
+        .then((response) => response.json())
+        .then((data) => mostrarPlatillos(data))
+        .catch((error) => console.log(error));
 }
 
 function mostrarPlatillos(platillos) {
-    const listaPlatillos = document.querySelector('#platillos .contenido')
+    const listaPlatillos = document.querySelector('#platillos .contenido');
 
-    platillos.forEach( platillo => {
-        const { categoria, nombre, id, precio } = platillo
-        const row = document.createElement('DIV')
-        row.className = 'row py-3 border-top'
+    platillos.forEach((platillo) => {
+        const { categoria, nombre, id, precio } = platillo;
+        const row = document.createElement('DIV');
+        row.className = 'row py-3 border-top';
 
-        const nombreElemento = document.createElement('DIV')
-        nombreElemento.className = 'col-md-4'
-        nombreElemento.textContent = nombre
+        const nombreElemento = document.createElement('DIV');
+        nombreElemento.className = 'col-md-4';
+        nombreElemento.textContent = nombre;
 
-        const precioElemento = document.createElement('DIV')
-        precioElemento.className = 'col-md-3 fw-bold'
-        precioElemento.textContent = '$' + precio
+        const precioElemento = document.createElement('DIV');
+        precioElemento.className = 'col-md-3 fw-bold';
+        precioElemento.textContent = '$' + precio;
 
-        const categoriaElemento = document.createElement('DIV')
-        categoriaElemento.className = 'col-md-3'
-        categoriaElemento.textContent = categorias[categoria]
+        const categoriaElemento = document.createElement('DIV');
+        categoriaElemento.className = 'col-md-3';
+        categoriaElemento.textContent = categorias[categoria];
 
-        row.appendChild(nombreElemento)
-        row.appendChild(precioElemento)
-        row.appendChild(categoriaElemento)
-        listaPlatillos.appendChild(row)
-    })
+        row.appendChild(nombreElemento);
+        row.appendChild(precioElemento);
+        row.appendChild(categoriaElemento);
+        listaPlatillos.appendChild(row);
+    });
 }
