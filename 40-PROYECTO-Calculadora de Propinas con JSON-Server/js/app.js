@@ -87,9 +87,23 @@ function mostrarPlatillos(platillos) {
         categoriaElemento.className = 'col-md-3';
         categoriaElemento.textContent = categorias[categoria];
 
+        const input = document.createElement('INPUT');
+        input.type = 'number';
+        input.min = 0;
+        input.value = 0;
+        input.id = 'producto-' + id;
+        input.className = 'form-control';
+
+        const agregarElemento = document.createElement('DIV')
+        agregarElemento.className = 'col-md-2';
+
+        agregarElemento.appendChild(input)
+
         row.appendChild(nombreElemento);
         row.appendChild(precioElemento);
         row.appendChild(categoriaElemento);
+        row.appendChild(agregarElemento);
+
         listaPlatillos.appendChild(row);
     });
 }
