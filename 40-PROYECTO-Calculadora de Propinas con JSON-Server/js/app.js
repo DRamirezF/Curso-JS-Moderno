@@ -87,9 +87,46 @@ function mostrarPlatillos(platillos) {
         categoriaElemento.className = 'col-md-3';
         categoriaElemento.textContent = categorias[categoria];
 
+        const inputCantidad = document.createElement('INPUT');
+        inputCantidad.type = 'number';
+        inputCantidad.min = 0;
+        inputCantidad.value = 0;
+        inputCantidad.id = 'producto-' + id;
+        inputCantidad.className = 'form-control';
+
+        // Función que detecta la cantidad y el platillo que se está agregando
+        inputCantidad.onchange = function() {
+            const cantidad = Number(inputCantidad.value)
+            agregarPlatillo({...platillo, cantidad})
+        }
+
+        const agregarElemento = document.createElement('DIV')
+        agregarElemento.className = 'col-md-2';
+
+        agregarElemento.appendChild(inputCantidad)
+
         row.appendChild(nombreElemento);
         row.appendChild(precioElemento);
         row.appendChild(categoriaElemento);
+        row.appendChild(agregarElemento);
+
         listaPlatillos.appendChild(row);
     });
+}
+
+function agregarPlatillo(producto) {
+    // Extraer el pedido actual
+    // let { pedido } = cliente
+
+    // Revisar que la cantidad sea mayor a 0
+    if (producto.cantidad > 0) {
+        cliente.pedido.push(producto)
+
+        // El vídeo usa esta línea y el destructuring, pero yo logré hacerlo de otra manera, así que problemos hasta donde llegamos
+        // cliente.pedido = [...pedido, producto]
+    } else {
+        console.log('No es mayor a 0');
+    }
+
+    console.log(cliente.pedido);
 }
