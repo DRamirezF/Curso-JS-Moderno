@@ -1,7 +1,7 @@
 let cliente = {
     mesa: '',
     hora: '',
-    pedido: [],
+    pedidos: [],
 };
 
 const categorias = {
@@ -116,17 +116,28 @@ function mostrarPlatillos(platillos) {
 
 function agregarPlatillo(producto) {
     // Extraer el pedido actual
-    // let { pedido } = cliente
+    let { pedidos } = cliente
 
     // Revisar que la cantidad sea mayor a 0
     if (producto.cantidad > 0) {
-        cliente.pedido.push(producto)
+        // Comprueba si el artículo ya existe en el Array
+        if( pedidos.some( pedido => pedido.id === producto.id )) {
+            // El artículo ya existe, entonces actualizamos la canitdad
+            const pedidoActualizado = pedidos.map( pedido => {
+                if ( pedido.id === producto.id ) {
+                    pedido.cantidad = producto.cantidad
+                }
+                return pedido
+            })
 
-        // El vídeo usa esta línea y el destructuring, pero yo logré hacerlo de otra manera, así que problemos hasta donde llegamos
-        // cliente.pedido = [...pedido, producto]
+            cliente.pedidos = [...pedidoActualizado]
+        } else {
+            // El artículo no existe, entonces lo agregamos al array de pedidos
+            cliente.pedidos = [...pedidos, producto]
+        }
     } else {
         console.log('No es mayor a 0');
     }
 
-    console.log(cliente.pedido);
+    console.log(cliente.pedidos);
 }
