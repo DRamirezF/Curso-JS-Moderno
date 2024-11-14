@@ -115,5 +115,18 @@ function mostrarPlatillos(platillos) {
 }
 
 function agregarPlatillo(producto) {
-    console.log(producto);
+    // Extraer el pedido actual
+    // let { pedido } = cliente
+
+    // Revisar que la cantidad sea mayor a 0
+    if (producto.cantidad > 0) {
+        cliente.pedido.push(producto)
+
+        // El vídeo usa esta línea y el destructuring, pero yo logré hacerlo de otra manera, así que problemos hasta donde llegamos
+        // cliente.pedido = [...pedido, producto]
+    } else {
+        console.log('No es mayor a 0');
+    }
+
+    console.log(cliente.pedido);
 }
