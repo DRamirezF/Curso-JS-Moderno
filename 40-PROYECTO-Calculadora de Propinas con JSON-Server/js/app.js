@@ -140,6 +140,8 @@ function agregarPlatillo(producto) {
         const resultado = pedidos.filter( pedido => pedido.id !== producto.id )
         cliente.pedidos = [...resultado];
     }
+    // Limpiar el código HTML Previo
+    limpiarHTML()
 
     // Mostrar el resumen
     actualizarResumen()
@@ -149,7 +151,7 @@ function actualizarResumen() {
     const contenido = document.querySelector('#resumen .contenido')
 
     const resumen = document.createElement('DIV')
-    resumen.classList.add('col-md-6')
+    resumen.className = 'col-md-6 card py-5 px-3 shadow'
 
     // Información de la mesa
     const mesa = document.createElement('P')
@@ -173,8 +175,25 @@ function actualizarResumen() {
     mesa.appendChild(mesaSpan)
     hora.appendChild(horaSpan)
 
+    // Titulo de la sección
+    const heading = document.createElement('H3')
+    heading.textContent = 'Platillso Consumidos'
+    heading.classList.add('my-4', 'text-center')
+
+    // Iterar sobre el array de pedidos
 
 
-    contenido.appendChild(mesa)
-    contenido.appendChild(hora)
+    resumen.appendChild(mesa)
+    resumen.appendChild(hora)
+    resumen.appendChild(heading)
+
+    contenido.appendChild(resumen)
+}
+
+function limpiarHTML() {
+    const contenido = document.querySelector('#resumen .contenido')
+
+    while (contenido.lastChild) {
+        contenido.removeChild(contenido.lastChild)
+    }
 }
