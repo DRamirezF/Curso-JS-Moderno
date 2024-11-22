@@ -177,7 +177,7 @@ function actualizarResumen() {
 
     // Titulo de la sección
     const heading = document.createElement('H3')
-    heading.textContent = 'Platillso Consumidos'
+    heading.textContent = 'Platillos Consumidos'
     heading.classList.add('my-4', 'text-center')
 
     // Iterar sobre el array de pedidos
