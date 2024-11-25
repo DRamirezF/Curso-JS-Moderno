@@ -181,11 +181,58 @@ function actualizarResumen() {
     heading.classList.add('my-4', 'text-center')
 
     // Iterar sobre el array de pedidos
+    const grupo = document.createElement('UL')
+    grupo.classList.add('list-group')
+
+    const { pedidos } = cliente
+    pedidos.forEach( articulo => {
+        const { nombre, cantidad, precio, id } = articulo
+
+        const lista = document.createElement('UL')
+        lista.classList.add('list-group-item')
+
+        // Nombre del artículo
+        const nombreEl = document.createElement('H4');
+        nombreEl.className = 'my-4'
+        nombreEl.textContent = nombre
+
+        // Cantidad del artículo
+        const cantidadEl = document.createElement('P');
+        cantidadEl.className = 'fw-bold'
+        cantidadEl.textContent = 'Cantidad: '
+
+        const cantidadValor = document.createElement('SPAN');
+        cantidadValor.className = 'fw-normal'
+        cantidadValor.textContent = cantidad
+
+        // Precio del artículo
+        const precioEl = document.createElement('P');
+        precioEl.className = 'fw-bold'
+        precioEl.textContent = 'Precio: '
+
+        const precioValor = document.createElement('SPAN');
+        precioValor.className = 'fw-normal'
+        precioValor.textContent = `$${precio}`
+
+        // Agregar valores a sus contenedores
+        cantidadEl.appendChild(cantidadValor)
+        precioEl.appendChild(precioValor)
+
+        // Agregar elementos al LI
+        lista.appendChild(nombreEl)
+        lista.appendChild(cantidadEl)
+        lista.appendChild(precioEl)
+
+
+        // Agregar lista al grupo principal
+        grupo.appendChild(lista)
+    });
 
 
     resumen.appendChild(mesa)
     resumen.appendChild(hora)
     resumen.appendChild(heading)
+    resumen.appendChild(grupo)
 
     contenido.appendChild(resumen)
 }
