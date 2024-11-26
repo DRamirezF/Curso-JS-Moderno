@@ -223,6 +223,16 @@ function actualizarResumen() {
         subtotalValor.className = 'fw-normal'
         subtotalValor.textContent = calcularSubtotal( precio, cantidad )
 
+        // Botón Eliminar
+        const btnEliminar  = document.createElement('BUTTON')
+        btnEliminar.className = 'btn btn-danger'
+        btnEliminar.textContent = 'Eliminar del pedido'
+
+        // Función para eliminar del pedido
+        btnEliminar.onclick = function() {
+            eliminarProducto(id)
+        }
+
         // Agregar valores a sus contenedores
         cantidadEl.appendChild(cantidadValor)
         precioEl.appendChild(precioValor)
@@ -233,6 +243,7 @@ function actualizarResumen() {
         lista.appendChild(cantidadEl)
         lista.appendChild(precioEl)
         lista.appendChild(subtotalEl)
+        lista.appendChild(btnEliminar)
 
 
         // Agregar lista al grupo principal
@@ -258,4 +269,16 @@ function limpiarHTML() {
 
 function calcularSubtotal(precio, cantidad) {
     return `$ ${precio * cantidad}`
+}
+
+function eliminarProducto(id) {
+    const { pedidos } = cliente;
+    const resultado = pedidos.filter( pedido => pedido.id !== id )
+    cliente.pedidos = [...resultado];
+
+    // Limpiar el código HTML Previo
+    limpiarHTML()
+
+    // Mostrar el resumen
+    actualizarResumen()
 }
