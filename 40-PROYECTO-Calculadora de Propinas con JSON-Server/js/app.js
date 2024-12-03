@@ -143,8 +143,12 @@ function agregarPlatillo(producto) {
     // Limpiar el código HTML Previo
     limpiarHTML()
 
-    // Mostrar el resumen
-    actualizarResumen()
+    if ( cliente.pedidos.length ) {
+        // Mostrar el resumen
+        actualizarResumen()
+    } else {
+        mensajePedidoVacio()
+    }
 }
 
 function actualizarResumen() {
@@ -273,12 +277,32 @@ function calcularSubtotal(precio, cantidad) {
 
 function eliminarProducto(id) {
     const { pedidos } = cliente;
+
     const resultado = pedidos.filter( pedido => pedido.id !== id )
     cliente.pedidos = [...resultado];
 
     // Limpiar el código HTML Previo
     limpiarHTML()
 
-    // Mostrar el resumen
-    actualizarResumen()
+    if ( cliente.pedidos.length ) {
+        // Mostrar el resumen
+        actualizarResumen()
+    } else {
+        mensajePedidoVacio()
+    }
+
+    // El producto se eliminó por la tanto regresamos la cantidad a 0 en el formulario
+    const productoEliminado = `#producto-${id}`
+    const inputELiminado = document.querySelector(productoEliminado)
+    inputELiminado.value = 0
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido')
+
+    const texto = document.createElement('P')
+    texto.className = 'text-center'
+    texto.textContent = 'Añade los elementos del pedido'
+
+    contenido.appendChild(texto)
 }
