@@ -143,15 +143,19 @@ function agregarPlatillo(producto) {
     // Limpiar el código HTML Previo
     limpiarHTML()
 
-    // Mostrar el resumen
-    actualizarResumen()
+    if ( cliente.pedidos.length ) {
+        // Mostrar el resumen
+        actualizarResumen()
+    } else {
+        mensajePedidoVacio()
+    }
 }
 
 function actualizarResumen() {
     const contenido = document.querySelector('#resumen .contenido')
 
     const resumen = document.createElement('DIV')
-    resumen.className = 'col-md-6 card py-5 px-3 shadow'
+    resumen.className = 'col-md-6 card py-2 px-3 shadow'
 
     // Información de la mesa
     const mesa = document.createElement('P')
@@ -251,12 +255,15 @@ function actualizarResumen() {
     });
 
 
+    resumen.appendChild(heading)
     resumen.appendChild(mesa)
     resumen.appendChild(hora)
-    resumen.appendChild(heading)
     resumen.appendChild(grupo)
 
     contenido.appendChild(resumen)
+
+    // Mostrar formulario de propinas
+    formularioPropinas()
 }
 
 function limpiarHTML() {
@@ -273,12 +280,110 @@ function calcularSubtotal(precio, cantidad) {
 
 function eliminarProducto(id) {
     const { pedidos } = cliente;
+
     const resultado = pedidos.filter( pedido => pedido.id !== id )
     cliente.pedidos = [...resultado];
 
     // Limpiar el código HTML Previo
     limpiarHTML()
 
-    // Mostrar el resumen
-    actualizarResumen()
+    if ( cliente.pedidos.length ) {
+        // Mostrar el resumen
+        actualizarResumen()
+    } else {
+        mensajePedidoVacio()
+    }
+
+    // El producto se eliminó por la tanto regresamos la cantidad a 0 en el formulario
+    const productoEliminado = `#producto-${id}`
+    const inputELiminado = document.querySelector(productoEliminado)
+    inputELiminado.value = 0
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido')
+
+    const texto = document.createElement('P')
+    texto.className = 'text-center'
+    texto.textContent = 'Añade los elementos del pedido'
+
+    contenido.appendChild(texto)
+}
+
+function formularioPropinas() {
+    const contenido = document.querySelector('#resumen .contenido')
+
+    const formulario = document.createElement('DIV')
+    formulario.className = 'col-md-6 formulario'
+
+    const divFormulario = document.createElement('DIV')
+    divFormulario.className = 'card py-2 px-3 shadow'
+
+    const heading = document.createElement('H3')
+    heading.className = 'my-4 text-center'
+    heading.textContent = 'Propina'
+
+
+    // Radio Button 10%
+    const radio10 = document.createElement('INPUT')
+    radio10.type = 'radio'
+    radio10.name = 'propina'
+    radio10.value = 10
+    radio10.className = 'form-check-input'
+
+    const radio10Label = document.createElement('LABEL')
+    radio10Label.textContent = '10%'
+    radio10Label.className = 'form-check-label'
+
+    const radio10Div = document.createElement('DIV')
+    radio10Div.className = 'form-check'
+
+    radio10Label.appendChild(radio10)
+    radio10Div.appendChild(radio10Label)
+
+
+    // Radio Button 25%
+    const radio25 = document.createElement('INPUT')
+    radio25.type = 'radio'
+    radio25.name = 'propina'
+    radio25.value = 25
+    radio25.className = 'form-check-input'
+
+    const radio25Label = document.createElement('LABEL')
+    radio25Label.textContent = '25%'
+    radio25Label.className = 'form-check-label'
+
+    const radio25Div = document.createElement('DIV')
+    radio25Div.className = 'form-check'
+
+    radio25Label.appendChild(radio25)
+    radio25Div.appendChild(radio25Label)
+
+
+    // Radio Button 25%
+    const radio50 = document.createElement('INPUT')
+    radio50.type = 'radio'
+    radio50.name = 'propina'
+    radio50.value = 50
+    radio50.className = 'form-check-input'
+
+    const radio50Label = document.createElement('LABEL')
+    radio50Label.textContent = '50%'
+    radio50Label.className = 'form-check-label'
+
+    const radio50Div = document.createElement('DIV')
+    radio50Div.className = 'form-check'
+
+    radio50Label.appendChild(radio50)
+    radio50Div.appendChild(radio50Label)
+
+
+    divFormulario.appendChild(heading)
+    divFormulario.appendChild(radio10Div)
+    divFormulario.appendChild(radio25Div)
+    divFormulario.appendChild(radio50Div)
+
+    formulario.appendChild(divFormulario)
+
+    contenido.appendChild(formulario)
 }
